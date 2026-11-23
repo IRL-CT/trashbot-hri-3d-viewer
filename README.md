@@ -17,19 +17,17 @@ Any static HTTP server on `web/`. Opening `index.html` directly from disk does n
 python3 -m http.server -d web 8000     
 # Open http://localhost:8000
 ```
-The viewer works offline but needs a recent Chrome, Edge, Firefox or Safari.
 
 ## Use
 - **Snippets** (right): search box, area (borough / place) and date filters.
-- **Play** / slider, space bar, ←/→ for one frame; drag to orbit, wheel to zoom (pedestrian view: drag to look
-  around, wheel to change the field of view).
-- **Camera**: presets `side`, `wide`, `robot`, `follow person`, `top`, `pedestrian POV` (the person's eyes).
-- **Person**: body (WHAM, MotionBERT, Kimodo), trail, future path, colours / opacity. **Robot**: trajectory colour /
-  opacity, distance rings (0.45, 1.2, 3.6 m). **Scene point cloud**: show, point size, opacity, colour.
-  **Scene & light** and **Overlay** (close-up and 360 video, faces blurred) are folded.
+- **Play** (play/pause/move in time using slider, space bar or ←/→). Drag to orbit, wheel to zoom.
+- **Camera**: presets are `side`, `wide`, `robot`, `follow person`, `top`, `pedestrian POV`
+- **Person**: choose the body model (WHAM - default, MotionBERT, Kimodo), path drawing options. 
+- **Robot**: path drawing option, distance rings. 
+- **Scene point cloud**: show or hide, set point size, opacity, colour.
+- **Scene & light**: advanced scene rendering options
+- **Overlay** : close-up and 360 video display, if assets are present (faces are blurred).
 - **Export…** (top right): MP4 of the whole clip or PNG of the current frame, as you see it (1920 × 1080).
-- Your settings are kept in the browser; **reset all settings** restores the defaults. URL parameters override them,
-  e.g. `?snippet=<id>&camera=pedestrian&model=kimodo`.
 
 ## Files
 ```
@@ -37,16 +35,16 @@ web/
   index.html            page layout, export dialog
   viewer.js             viewer (three.js): loading, cameras, rendering, GUI, export
   assets/               robot model (trash_barrel_120L.glb)
-  snippets/             data (repo: one snippet; all of them: see Data)
+  snippets/             data (one snippet included in the repo, see Data to download the others)
     index.json          snippet list (id, place, date, robot, video, person, frames)
     faces_smpl.bin      mesh triangles of the SMPL / SMPL-X bodies (uint32)
     faces_smplx.bin
     <id>/scene.json     robot and person tracks, cameras, pedestrian eye / facing per body
     <id>/body_*.bin     prerendered body meshes per frame (motionbert, wham, kimodo)
     <id>/cloud.bin      filtered scene point cloud (float32 xyz, uint8 rgb)
-    <id>/crop.jpgs      close-up and 360 video frames, faces blurred (concatenated JPEGs, offsets in scene.json)
-    <id>/pano.jpgs
-  vendor/               three.js 0.160, lil-gui 0.19.2, mp4-muxer 5.1.3 (MIT licences inside)
+    <id>/crop.jpgs      close-up frames, faces blurred
+    <id>/pano.jpgs      full frames, faces blurred
+  vendor/               three.js 0.160, lil-gui 0.19.2, mp4-muxer 5.1.3
 tools/                  how web/snippets/ was made from the research pipeline (not needed to view):
   build_snippets.py     bake the snippets (run with --with-video for the frames)
   blur_faces.py         then blur every face in the frames (YOLO face + pose detectors)
