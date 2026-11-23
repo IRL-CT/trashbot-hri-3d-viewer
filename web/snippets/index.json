@@ -1,0 +1,128 @@
+[
+ {
+  "id": "staten_tappen_park_2025-07-03_robot1_video_0_p25000",
+  "title": "Tappen Park (Staten Island)  \u00b7  2025-07-03",
+  "subtitle": "robot1 video_0  \u00b7  person 25000  \u00b7  3D reconstruction",
+  "T": 147,
+  "fps": 15.0,
+  "models": [
+   "motionbert",
+   "wham",
+   "kimodo"
+  ],
+  "points": 377394,
+  "source": "ap_staten_tappen_park_2025_07_03_robot1_video_0_p25000_230s6_20261117-003040",
+  "area": "staten_tappen_park",
+  "date": "2025-07-03",
+  "robot": "robot1",
+  "video": "video_0",
+  "person": 25000,
+  "t0": 230.6,
+  "dur": 3.0
+ },
+ {
+  "id": "queens_astoria_park_2025-07-15_robot1_video_1_p115000",
+  "title": "Astoria Park (Queens)  \u00b7  2025-07-15",
+  "subtitle": "robot1 video_1  \u00b7  person 115000  \u00b7  3D reconstruction",
+  "T": 107,
+  "fps": 15.0,
+  "models": [
+   "motionbert",
+   "wham",
+   "kimodo"
+  ],
+  "points": 498695,
+  "source": "14_segment_robot_moving_people_moving_ap_queens_astoria_park_2025_07_15_robot1_video_1_p115000_1083s1_20261117-165142",
+  "area": "queens_astoria_park",
+  "date": "2025-07-15",
+  "robot": "robot1",
+  "video": "video_1",
+  "person": 115000,
+  "t0": 1083.067,
+  "dur": 3.0
+ },
+ {
+  "id": "bronx_little_italy_2025-09-26_robot1_video_0_p5000",
+  "title": "Little Italy (Bronx)  \u00b7  2025-09-26",
+  "subtitle": "robot1 video_0  \u00b7  person 5000  \u00b7  3D reconstruction",
+  "T": 142,
+  "fps": 15.0,
+  "models": [
+   "motionbert",
+   "wham",
+   "kimodo"
+  ],
+  "points": 68360,
+  "source": "ap_bronx_little_italy_2025_09_26_robot1_video_0_p5000_46s9_20261116-234016",
+  "area": "bronx_little_italy",
+  "date": "2025-09-26",
+  "robot": "robot1",
+  "video": "video_0",
+  "person": 5000,
+  "t0": 46.933,
+  "dur": 3.0
+ },
+ {
+  "id": "manhattan_ct_cafe_2026-07-20_robot1_video_0_p5000",
+  "title": "Ct Cafe (Manhattan)  \u00b7  2026-07-20",
+  "subtitle": "robot1 video_0  \u00b7  person 5000  \u00b7  3D reconstruction",
+  "T": 226,
+  "fps": 15.0,
+  "models": [
+   "motionbert",
+   "wham",
+   "kimodo"
+  ],
+  "points": 145925,
+  "source": "ap_manhattan_ct_cafe_2026_07_20_robot1_video_0_p5000_46s7_20261118-005044",
+  "area": "manhattan_ct_cafe",
+  "date": "2026-07-20",
+  "robot": "robot1",
+  "video": "video_0",
+  "person": 5000,
+  "t0": 46.667,
+  "dur": 3.4
+ },
+ {
+  "id": "manhattan_ct_cafe_2026-07-22_robot1_video_0_p3000",
+  "title": "Ct Cafe (Manhattan)  \u00b7  2026-07-22",
+  "subtitle": "robot1 video_0  \u00b7  person 3000  \u00b7  3D reconstruction",
+  "T": 167,
+  "fps": 15.0,
+  "models": [
+   "motionbert",
+   "wham",
+   "kimodo"
+  ],
+  "points": 156423,
+  "source": "ap_manhattan_ct_cafe_2026_07_22_robot1_video_0_p3000_83s1_20261118-005751",
+  "area": "manhattan_ct_cafe",
+  "date": "2026-07-22",
+  "robot": "robot1",
+  "video": "video_0",
+  "person": 3000,
+  "t0": 83.133,
+  "dur": 2.73
+ },
+ {
+  "id": "brooklyn_navy_yard_2026-08-25_robot1_video_0_p2000",
+  "title": "Navy Yard (Brooklyn)  \u00b7  2026-08-25",
+  "subtitle": "robot1 video_0  \u00b7  person 2000  \u00b7  3D reconstruction",
+  "T": 226,
+  "fps": 15.0,
+  "models": [
+   "motionbert",
+   "wham",
+   "kimodo"
+  ],
+  "points": 294899,
+  "source": "navy_yard_ap_brooklyn_navy_yard_2026_08_25_robot1_video_0_p2000_22s5_20261120-180246",
+  "area": "brooklyn_navy_yard",
+  "date": "2026-08-25",
+  "robot": "robot1",
+  "video": "video_0",
+  "person": 2000,
+  "t0": 22.533,
+  "dur": 3.0
+ }
+]

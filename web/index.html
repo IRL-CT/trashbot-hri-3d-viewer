@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trashbot 3D Snippets</title>
+<style>
+  :root { --bg: #1b1d22; --panel: #24272e; --line: #3a3e48; --text: #e6e7ea; --muted: #9a9fab; --accent: #4aa8ff; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text);
+    font: 13px/1.4 Roboto, "DejaVu Sans", system-ui, sans-serif; overflow: hidden; }
+  #app { display: grid; grid-template-columns: 1fr 300px; grid-template-rows: auto 1fr auto; height: 100vh; }
+  #top { grid-column: 1 / 3; display: flex; gap: 14px; align-items: center; padding: 8px 14px;
+    border-bottom: 1px solid var(--line); background: var(--panel); }
+  #top h1 { font-size: 15px; margin: 0; font-weight: 600; white-space: nowrap; }
+  #snipTitle { color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
+  button { background: var(--panel); color: var(--text); border: 1px solid var(--line); border-radius: 4px;
+    padding: 5px 12px; cursor: pointer; font: inherit; }
+  button:hover { border-color: var(--accent); }
+  button.primary { background: var(--accent); border-color: var(--accent); color: #0d1117; font-weight: 600; }
+  #stagewrap { grid-column: 1; grid-row: 2; display: flex; align-items: center; justify-content: center;
+    min-width: 0; min-height: 0; padding: 12px; }
+  #stage { max-width: 100%; max-height: 100%; aspect-ratio: 16 / 9; width: 100%; height: auto;
+    background: #fff; cursor: grab; display: block; }
+  #stage.drag { cursor: grabbing; }
+  #bar { grid-column: 1; grid-row: 3; display: flex; gap: 10px; align-items: center; padding: 8px 14px 12px; }
+  #slider { flex: 1; accent-color: var(--accent); }
+  #time { font-variant-numeric: tabular-nums; min-width: 150px; color: var(--muted); }
+  #side { grid-column: 2; grid-row: 2 / 4; overflow-y: auto; background: var(--panel); border-left: 1px solid var(--line); }
+  #side .lil-gui.root { width: 100% !important; --width: 300px; }
+  #progs { padding: 8px 12px 0; position: sticky; top: 0; z-index: 2; background: var(--panel); }
+  #progs:empty { display: none; }
+  .prog { margin-bottom: 8px; font-size: 12px; color: var(--muted); }
+  .prog .bar { height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; margin-bottom: 3px; }
+  .prog .fill { height: 100%; background: var(--accent); transition: width 0.3s; }
+  #status { padding: 8px 12px; color: var(--muted); font-size: 12px; white-space: pre-wrap; word-break: break-word; }
+  #help { padding: 0 12px 12px; color: var(--muted); font-size: 12px; }
+  #seg { padding: 10px 12px; border-bottom: 1px solid var(--line); display: flex; flex-direction: column; gap: 6px; }
+  #seg .row { display: flex; gap: 6px; align-items: center; }
+  #seg .row > select { flex: 1; min-width: 0; }
+  input, select { background: var(--bg); color: var(--text); border: 1px solid var(--line);
+    border-radius: 4px; font: inherit; font-size: 12px; padding: 3px 5px; }
+  input:focus, select:focus { outline: none; border-color: var(--accent); }
+  #fCount { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; text-align: right; }
+  #fList { height: 150px; font-size: 12px; }
+  dialog { background: var(--panel); color: var(--text); border: 1px solid var(--line); border-radius: 8px;
+    padding: 18px 20px; min-width: 360px; }
+  dialog::backdrop { background: rgba(0, 0, 0, 0.5); }
+  dialog h2 { margin: 0 0 12px; font-size: 15px; }
+  dialog label { display: grid; grid-template-columns: 130px 1fr; align-items: center; gap: 8px; margin: 8px 0; color: var(--muted); }
+  dialog .buttons { display: flex; justify-content: flex-end; gap: 8px; margin-top: 16px; }
+  dialog .note { color: var(--muted); font-size: 12px; margin-top: 8px; max-width: 360px; }
+</style>
+<script type="importmap">
+{ "imports": {
+  "three": "./vendor/three/three.module.js",
+  "three/addons/": "./vendor/three/addons/",
+  "lil-gui": "./vendor/lil-gui/lil-gui.esm.min.js",
+  "mp4-muxer": "./vendor/mp4-muxer/mp4-muxer.js"
+} }
+</script>
+</head>
+<body>
+<div id="app">
+  <div id="top">
+    <h1>Trashbot 3D snippets</h1>
+    <span id="snipTitle"></span>
+    <button id="exportBtn" class="primary">Export…</button>
+  </div>
+  <div id="stagewrap"><canvas id="stage" width="1920" height="1080"></canvas></div>
+  <div id="bar">
+    <button id="play">Play</button>
+    <input id="slider" type="range" min="0" max="0" value="0" step="1">
+    <span id="time"></span>
+  </div>
+  <div id="side">
+    <div id="progs"></div>
+    <div id="seg">
+      <input id="fText" type="search" placeholder="search (place, borough, date, robot, person; all words)">
+      <div class="row"><select id="fArea" title="area: borough or place"></select>
+        <select id="fDate" title="recording date: year or day"></select></div>
+      <div id="fCount"></div>
+      <select id="fList" size="8"></select>
+    </div>
+    <div id="gui"></div>
+    <div id="status"></div>
+    <div id="help">Drag: azimuth / elevation · wheel: distance (pedestrian view: field of view) · space: play · ←/→: frame.</div>
+  </div>
+</div>
+<dialog id="exportDlg">
+  <form method="dialog">
+    <h2>Export the current view</h2>
+    <label>format <select id="xFormat"><option value="mp4">video (MP4, whole clip)</option>
+      <option value="png">still (PNG, current frame)</option></select></label>
+    <label>file name <input id="xStem" type="text"></label>
+    <label>speed (slow motion) <input id="xSpeed" type="number" min="0.1" max="2" step="0.05"></label>
+    <label>supersampling <select id="xSs"><option>1</option><option>2</option><option>3</option></select></label>
+    <label>size <span>1920 × 1080</span></label>
+    <div class="note" id="xNote"></div>
+    <div class="buttons"><button value="cancel">Cancel</button><button id="xGo" value="ok" class="primary">Export</button></div>
+  </form>
+</dialog>
+<script type="module" src="viewer.js"></script>
+</body>
+</html>
